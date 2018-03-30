@@ -3,7 +3,6 @@ using UnityEditor;
 using System;
 
 [CustomEditor(typeof(Mision))]
-[CanEditMultipleObjects]
 public class MisionEditor : Editor {
 
     SerializedProperty EspacioTropas;

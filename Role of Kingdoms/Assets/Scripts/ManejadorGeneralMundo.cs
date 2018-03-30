@@ -684,8 +684,7 @@ public class ManejadorGeneralMundo : MonoBehaviour
     public void CerrarYLimpiarMisionMostrada(bool DesbloquearSoldados)
     {
         Mision ScriptMM = GameObject.Find(_MisionPanel.NombreMisionMapa).GetComponent<Mision>();
-        GameObject objSoldado1 = ScriptMM.infoSoldadosDisponibles[0].SoldadoEnLista;
-        if (DesbloquearSoldados && (objSoldado1 != null && objSoldado1.GetComponent<Soldados>().InfoActualSoldado.MisionCompletada))
+        if (DesbloquearSoldados)
         {
             for(int n = 0; n < ScriptMM.EspacioTropas.Length; n++)
             {

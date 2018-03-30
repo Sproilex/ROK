@@ -7,7 +7,6 @@ using System.Collections;
 public class Mision : MonoBehaviour
 {
     private ManejadorGeneralMundo MGM;
-    [Range(1,3)]
     public bool[] EspacioTropas = new bool[1];
     //Informacion de los Soldados:
     public __informacionSoldados[] infoSoldadosDisponibles;
@@ -145,11 +144,15 @@ public class Mision : MonoBehaviour
     {
         _punteroInfo.position = Input.mousePosition;
         _GR.Raycast(_punteroInfo, _resultadoRaycast);
-
-        if (_resultadoRaycast.Count == 0)
+        foreach(RaycastResult CR in _resultadoRaycast)
+        {
+            Debug.Log(CR.gameObject);
+        }
+        if (_resultadoRaycast.Count == 0 || _resultadoRaycast[0].gameObject.layer != 5)
         {
             MostrarLaInfoMision();
         }
+        _resultadoRaycast = new List<RaycastResult>();
     }
 
     /// <summary>
@@ -350,7 +353,7 @@ public class Mision : MonoBehaviour
         DificultadMision = infoNueva.DificultadMision;
         _PrefabMision = infoNueva._PrefabMision;
         _ManejadorDeSpawn = infoNueva._ManejadorDeSpawn;
-        EspacioTropas = infoNueva.EspacioTropas;
+        EspacioTropas = new bool[infoNueva.EspacioTropas.Length];
         infoSoldadosDisponibles = infoNueva.infoSoldadosDisponibles;
         NombresEnemigos = infoNueva.NombresEnemigos;
         InfoEnemigos = infoNueva.InfoEnemigos;
