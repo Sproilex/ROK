@@ -69,7 +69,7 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         _resultadoRaycast = new List<RaycastResult>();
         _punteroInfo = new PointerEventData(null);
         _GR = MGM.GraphicRaycasterPrincipal;
-        Reproductor = GetComponent<AudioSource>();
+        Reproductor = GameObject.Find("Reproductor_Voces").GetComponent<AudioSource>();
         StartCoroutine(ModificarDatosSoldados());
     }
 
@@ -81,10 +81,10 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             _PadreOriginal = this.transform.parent;
             this.transform.SetParent(this.transform.parent.parent.parent.parent, false);
             this.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-        }else if(_PosibleEnviarAMision && NoEsNivelMision && !InfoActualSoldado.EnMision && !Reproductor.isPlaying)
+        }
+        else
         {
-            Reproductor.PlayOneShot(MGM.VocesAdvertenciaNivelNoAdmitido
-               [Random.Range(0, MGM.VocesAdvertenciaNivelNoAdmitido.Count - 1)]);
+            AlPulsarEnSoldado();
         }
     }
 
@@ -98,7 +98,7 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
-        if (_PosibleEnviarAMision && !_NoEsNivelMision)
+        if (_PosibleEnviarAMision && !_NoEsNivelMision && !InfoActualSoldado.EnMision)
         {
             if (Input.GetMouseButtonUp(0) && !InfoActualSoldado.EnMision)
             {
@@ -296,8 +296,9 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
         else if(_PosibleEnviarAMision && NoEsNivelMision && !InfoActualSoldado.EnMision && !Reproductor.isPlaying)
         {
-            Reproductor.PlayOneShot(MGM.VocesAdvertenciaNivelNoAdmitido
-                [Random.Range(0, MGM.VocesAdvertenciaNivelNoAdmitido.Count - 1)]);
+            AudioClip Sonido = MGM.VocesAdvertenciaNivelNoAdmitido
+                [Random.Range(0, MGM.VocesAdvertenciaNivelNoAdmitido.Count - 1)];
+            Reproductor.PlayOneShot(Sonido);
         }
     }
 
