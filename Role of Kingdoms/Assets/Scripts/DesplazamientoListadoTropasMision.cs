@@ -43,8 +43,6 @@ public class DesplazamientoListadoTropasMision : MonoBehaviour {
 
 	public void DesplazarIzquierda()
     {
-        _Soldados.RemoveAll(null);
-        _SoldadosMision.RemoveAll(null);
         if (!EsPanelListaSoldados)
         {
             DeseleccionarSoldadosYLimpiar();
