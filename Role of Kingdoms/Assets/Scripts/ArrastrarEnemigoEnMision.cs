@@ -46,8 +46,9 @@ public class ArrastrarEnemigoEnMision : MonoBehaviour, IBeginDragHandler, IDragH
                 int total = Convert.ToInt32(this.name.Replace("Enemigo_", ""));
                 MActual.MostrarInformacionEnemigo(total);
             }
-            this.transform.position = posicionInicial;
+            
         }
+        this.transform.position = posicionInicial;
         _resultadoRaycast = new List<RaycastResult>();
     }
 

@@ -82,7 +82,7 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             this.transform.SetParent(this.transform.parent.parent.parent.parent, false);
             this.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
         }
-        else
+        else if(_PosibleEnviarAMision)
         {
             AlPulsarEnSoldado();
         }
@@ -132,7 +132,7 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     /// <returns></returns>
     IEnumerator ModificarDatosSoldados()
     {
-        _contadorIncrementoEnergia -= 1;
+        _contadorIncrementoEnergia -= 0.5f;
 
         if (_contadorIncrementoEnergia <= 0)
         {
@@ -180,21 +180,23 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
             Destroy(this.gameObject);
         }
-        BarraEnergia.value = InfoActualSoldado.Energia;
 
-        Soldados OtroSoldado = _PosibleEnviarAMision ? InfoActualSoldado.SoldadoEnLista.GetComponent<Soldados>():
-                                                       InfoActualSoldado.SoldadoEnListaMision.GetComponent<Soldados>();
+        Soldados OtroSoldado = _PosibleEnviarAMision ? InfoActualSoldado.SoldadoEnLista.GetComponent<Soldados>() :
+                                                      InfoActualSoldado.SoldadoEnListaMision.GetComponent<Soldados>();
         int EnergiaOtroSoldado = OtroSoldado.InfoActualSoldado.Energia;
 
         if (EnergiaOtroSoldado > InfoActualSoldado.Energia)
         {
             InfoActualSoldado.Energia = EnergiaOtroSoldado;
         }
-        else if(EnergiaOtroSoldado < InfoActualSoldado.Energia)
+        else if (EnergiaOtroSoldado < InfoActualSoldado.Energia)
         {
             OtroSoldado.InfoActualSoldado.Energia = InfoActualSoldado.Energia;
+            OtroSoldado.BarraEnergia.value = OtroSoldado.InfoActualSoldado.Energia;
         }
-        yield return new WaitForSeconds(1f);
+
+        BarraEnergia.value = InfoActualSoldado.Energia;
+        yield return new WaitForSecondsRealtime(.5f);
         StartCoroutine(ModificarDatosSoldados());
     }
 
