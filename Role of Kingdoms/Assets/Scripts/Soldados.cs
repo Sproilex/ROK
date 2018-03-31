@@ -136,22 +136,17 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         if (_contadorIncrementoEnergia <= 0)
         {
-            if (InfoActualSoldado.Energia < 100 && !InfoActualSoldado.Lesion)
+            if (InfoActualSoldado.Energia < 100 && !InfoActualSoldado.Lesion && InfoActualSoldado.Energia > 0)
             {
                 InfoActualSoldado.Energia++;
                 _contadorIncrementoEnergia = reponerContadorIncrementoEnergia;
             }
-            else if (InfoActualSoldado.Energia < 100 && InfoActualSoldado.Lesion)
+            else if (InfoActualSoldado.Energia < 100 && InfoActualSoldado.Lesion && InfoActualSoldado.Energia > 0)
             {
                 InfoActualSoldado.Energia++;
                 _contadorIncrementoEnergia = reponerContadorIncrementoEnergia * 2;
             }
 
-        }
-
-        if (InfoActualSoldado.Energia < 0)
-        {
-            InfoActualSoldado.Energia = 0;
         }
 
         if (InfoActualSoldado.Energia >= 26)
@@ -167,20 +162,22 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         if(InfoActualSoldado.Energia <= 0)
         {
-            DesplazamientoListadoTropasMision[] STropas = GameObject.FindObjectsOfType<DesplazamientoListadoTropasMision>();
-            foreach(DesplazamientoListadoTropasMision CStropas in STropas)
+                DesplazamientoListadoTropasMision[] STropas = GameObject.FindObjectsOfType<DesplazamientoListadoTropasMision>();
+            foreach (DesplazamientoListadoTropasMision CStropas in STropas)
             {
-                if (_PosibleEnviarAMision && CStropas.transform.parent.name == "Detalles_Mision")
+                if (_PosibleEnviarAMision && !CStropas.EsPanelListaSoldados)
                 {
-                    CStropas.EliminarSoldadoMision(this.gameObject);
-                    break;
-                }else if(!_PosibleEnviarAMision && CStropas.transform.parent.name == "Panel_Contenedor_Soldados")
+                    CStropas.EliminarSoldadoMision(InfoActualSoldado.SoldadoEnListaMision);
+                    CStropas._Soldados.Remove(InfoActualSoldado.SoldadoEnLista);
+                }
+                else if (!_PosibleEnviarAMision && CStropas.EsPanelListaSoldados)
                 {
-                    CStropas.EliminarSoldadoLista(this.gameObject);
+                    CStropas.EliminarSoldadoLista(InfoActualSoldado.SoldadoEnLista);
+                    CStropas.SoldadosMision.Remove(InfoActualSoldado.SoldadoEnListaMision);
                     MGM.NumeroSoldadosActuales--;
-                    break;
                 }
             }
+
             Destroy(this.gameObject);
         }
         BarraEnergia.value = InfoActualSoldado.Energia;

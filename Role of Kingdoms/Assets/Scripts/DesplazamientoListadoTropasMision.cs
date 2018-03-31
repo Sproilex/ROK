@@ -5,8 +5,8 @@ using System;
 
 public class DesplazamientoListadoTropasMision : MonoBehaviour {
 
-    private List<GameObject> _Soldados = new List<GameObject>();
-    private List<GameObject> _SoldadosMision = new List<GameObject>();
+    public List<GameObject> _Soldados = new List<GameObject>();
+    public List<GameObject> _SoldadosMision = new List<GameObject>();
     private Transform PosAgrupador;
     private Transform PosOcultos;
     private string NombreEspacioCartas;
@@ -43,6 +43,8 @@ public class DesplazamientoListadoTropasMision : MonoBehaviour {
 
 	public void DesplazarIzquierda()
     {
+        _Soldados.RemoveAll(null);
+        _SoldadosMision.RemoveAll(null);
         if (!EsPanelListaSoldados)
         {
             DeseleccionarSoldadosYLimpiar();
@@ -279,7 +281,7 @@ public class DesplazamientoListadoTropasMision : MonoBehaviour {
             if (NumeroSoldadoEliminar + (contador + 1) < _Soldados.Count)
             {
                 GameObject MisionAMover = _Soldados[NumeroSoldadoEliminar + (contador + 1)];
-                if (MisionAMover != null)
+                if (MisionAMover != null && !MisionAMover.GetComponent<Soldados>().PosibleEnviarAMision)
                 {
                     MisionAMover.transform.SetParent(Padre);
                     UltimoSoldadoTomado = NumeroSoldadoEliminar + (contador + 1);
@@ -333,7 +335,7 @@ public class DesplazamientoListadoTropasMision : MonoBehaviour {
             if (NumeroSoldadoEliminar + (contador + 1) < _SoldadosMision.Count)
             {
                 GameObject MisionAMover = _SoldadosMision[NumeroSoldadoEliminar + (contador + 1)];
-                if (MisionAMover != null)
+                if (MisionAMover != null && MisionAMover.GetComponent<Soldados>().PosibleEnviarAMision)
                 {
                     MisionAMover.transform.SetParent(Padre);
                     UltimoSoldadoTomado = NumeroSoldadoEliminar + (contador + 1);
