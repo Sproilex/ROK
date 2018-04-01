@@ -24,32 +24,37 @@ public class ArrastrarEnemigoEnMision : MonoBehaviour, IBeginDragHandler, IDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        posicionInicial = this.transform.position;
+        if(Input.GetMouseButton(0) && !Input.GetMouseButton(1))
+            posicionInicial = this.transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        this.transform.position = Input.mousePosition;
+        if (Input.GetMouseButton(0))
+            this.transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        _punteroInfo.position = Input.mousePosition;
-        _GR.Raycast(_punteroInfo, _resultadoRaycast);
-        if (_resultadoRaycast.Count > 0)
+        if (Input.GetMouseButtonUp(0) && !Input.GetMouseButtonUp(1))
         {
-            GameObject ObjetoInfoDetalles = _resultadoRaycast.Find(x => x.gameObject.name == "Panel_Mostrar_Detalles").gameObject;
-            if (ObjetoInfoDetalles != null)
+            _punteroInfo.position = Input.mousePosition;
+            _GR.Raycast(_punteroInfo, _resultadoRaycast);
+            if (_resultadoRaycast.Count > 0)
             {
-                string nombre = MGM.MisionPanel.NombreMisionMapa;
-                Mision MActual = GameObject.Find(nombre).GetComponent<Mision>();
-                int total = Convert.ToInt32(this.name.Replace("Enemigo_", ""));
-                MActual.MostrarInformacionEnemigo(total);
+                GameObject ObjetoInfoDetalles = _resultadoRaycast.Find(x => x.gameObject.name == "Panel_Mostrar_Detalles").gameObject;
+                if (ObjetoInfoDetalles != null)
+                {
+                    string nombre = MGM.MisionPanel.NombreMisionMapa;
+                    Mision MActual = GameObject.Find(nombre).GetComponent<Mision>();
+                    int total = Convert.ToInt32(this.name.Replace("Enemigo_", ""));
+                    MActual.MostrarInformacionEnemigo(total);
+                }
+
             }
-            
+            this.transform.position = posicionInicial;
+            _resultadoRaycast = new List<RaycastResult>();
         }
-        this.transform.position = posicionInicial;
-        _resultadoRaycast = new List<RaycastResult>();
     }
 
 }

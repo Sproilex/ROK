@@ -75,22 +75,25 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
-        if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !NoEsNivelMision)
+        if (Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
-            posicionInicial = this.transform.position;
-            _PadreOriginal = this.transform.parent;
-            this.transform.SetParent(this.transform.parent.parent.parent.parent, false);
-            this.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-        }
-        else if(_PosibleEnviarAMision)
-        {
-            AlPulsarEnSoldado();
+            if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !NoEsNivelMision)
+            {
+                posicionInicial = this.transform.position;
+                _PadreOriginal = this.transform.parent;
+                this.transform.SetParent(this.transform.parent.parent.parent.parent, false);
+                this.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+            }
+            else if (_PosibleEnviarAMision)
+            {
+                AlPulsarEnSoldado();
+            }
         }
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !_NoEsNivelMision)
+        if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !_NoEsNivelMision && Input.GetMouseButton(0))
         {
             this.transform.position = Input.mousePosition;
         }
@@ -98,7 +101,7 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
-        if (_PosibleEnviarAMision && !_NoEsNivelMision && !InfoActualSoldado.EnMision)
+        if (_PosibleEnviarAMision && !_NoEsNivelMision && !InfoActualSoldado.EnMision && Input.GetMouseButtonUp(0))
         {
             if (Input.GetMouseButtonUp(0) && !InfoActualSoldado.EnMision)
             {

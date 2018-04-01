@@ -98,7 +98,8 @@ public struct __informacionSoldados
     {
         if(Obj1.Nombre == Obj2.Nombre && Obj1.Nivel == Obj2.Nivel && Obj1.Raza == Obj2.Raza && Obj1.Clase == Obj2.Clase
            && Obj1.EXP == Obj2.EXP && Obj1.Heroe == Obj2.Heroe && Obj1.Vida == Obj2.Vida && Obj1.Icono == Obj2.Icono &&
-           Obj1.Poderes == Obj2.Poderes)
+           Obj1.Poderes == Obj2.Poderes && Obj1.SoldadoEnLista == Obj2.SoldadoEnLista
+           && Obj1.SoldadoEnListaMision == Obj2.SoldadoEnListaMision)
         {
             return true;
         }
@@ -532,9 +533,14 @@ public class ManejadorGeneralMundo : MonoBehaviour
             __informacionSoldados InfoSoldado3 = new __informacionSoldados(pDano: 1, pVida: 10, pHeroe: false,
                                                                                       pNombre: "Mariano", pIcono: Iconos[3],
                                                                                       pRaza: "Humano", pClase: "Saqueador");
+
             __informacionSoldados InfoSoldado4 = new __informacionSoldados(pDano: 1, pVida: 10, pHeroe: false,
-                                                                                      pNombre: "Malacath", pIcono: Iconos[2],
-                                                                                      pRaza: "Gnomo", pClase: "Granjero");
+                                                                                      pNombre: "Mariano", pIcono: Iconos[3],
+                                                                                      pRaza: "Humano", pClase: "Saqueador");
+
+            //__informacionSoldados InfoSoldado4 = new __informacionSoldados(pDano: 1, pVida: 10, pHeroe: false,
+            //                                                                          pNombre: "Malacath", pIcono: Iconos[2],
+            //                                                                          pRaza: "Gnomo", pClase: "Granjero");
 
             __informacionSoldados InfoSoldado5 = new __informacionSoldados(pDano: 1, pVida: 10, pHeroe: false,
                                                                                       pNombre: "Joselfas", pIcono: Iconos[0],
