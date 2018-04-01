@@ -77,7 +77,8 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if (Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
-            if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !NoEsNivelMision)
+            if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !NoEsNivelMision
+                && FindObjectOfType<ManejadorMisionPanel>().AnimatorMMP.GetBool("Bajar"))
             {
                 posicionInicial = this.transform.position;
                 _PadreOriginal = this.transform.parent;
@@ -93,7 +94,8 @@ public class Soldados : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !_NoEsNivelMision && Input.GetMouseButton(0))
+        if (_PosibleEnviarAMision && !InfoActualSoldado.EnMision && !_NoEsNivelMision && Input.GetMouseButton(0)
+            && FindObjectOfType<ManejadorMisionPanel>().AnimatorMMP.GetBool("Bajar"))
         {
             this.transform.position = Input.mousePosition;
         }

@@ -25,12 +25,12 @@ public class ArrastrarEnemigoEnMision : MonoBehaviour, IBeginDragHandler, IDragH
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(Input.GetMouseButton(0) && !Input.GetMouseButton(1))
-            posicionInicial = this.transform.position;
+            posicionInicial = this.transform.localPosition;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && FindObjectOfType<ManejadorMisionPanel>().AnimatorMMP.GetBool("Bajar"))
             this.transform.position = Input.mousePosition;
     }
 
@@ -52,9 +52,10 @@ public class ArrastrarEnemigoEnMision : MonoBehaviour, IBeginDragHandler, IDragH
                 }
 
             }
-            this.transform.position = posicionInicial;
+            this.transform.localPosition = posicionInicial;
             _resultadoRaycast = new List<RaycastResult>();
-        }
+        }else
+            this.transform.localPosition = posicionInicial;
     }
 
 }

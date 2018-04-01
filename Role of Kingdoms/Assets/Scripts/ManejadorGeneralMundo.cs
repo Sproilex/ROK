@@ -769,7 +769,7 @@ public class ManejadorGeneralMundo : MonoBehaviour
         if(numeroSoldados > 5)
         {
             GameObject.FindGameObjectWithTag("Soldados_Listados").transform.parent.Find("Flecha_Derecha").GetComponent<Button>().interactable = true;
-            GameObject.FindGameObjectWithTag("Mision_Para_Enviar").transform.Find("Detalles_Mision").Find("Flecha_Derecha").GetComponent<Button>().interactable = true;
+            GameObject.FindGameObjectWithTag("Mision_Para_Enviar").transform.Find("Detalles_Mision").Find("Panel_Informacion_Y_Enemigos").Find("Flecha_Derecha").GetComponent<Button>().interactable = true;
         }
     }
 

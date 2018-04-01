@@ -11,6 +11,12 @@ public class ManejadorMisionPanel : MonoBehaviour {
 
     //Getters y Setters:
 
+    public Animator AnimatorMMP
+    {
+        get { return _animatorMMP; }
+        set { _animatorMMP = value; }
+    }
+
     public string NombreMisionMapa
     {
         get { return _nombreMisionMapa; }
