@@ -103,4 +103,10 @@ public class CuartelGeneralConstruccionScript : FuncionesEdificios
             StartCoroutine(ComprobarParaCreacionCartaSoldado());
     }
 
+    void OnEnable()
+    {
+        if (BajarTiempo)
+            StartCoroutine(ComprobarParaCreacionCartaSoldado());
+    }
+
 }

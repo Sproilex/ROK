@@ -26,7 +26,6 @@ public class MisionEditor : Editor {
     SerializedProperty FormatoTiempoPeleaBatalla;
 
     ManejadorGeneralMundo MGM;
-    bool DesplegarTiempos = false;
 
     void OnEnable()
     {
@@ -88,7 +87,7 @@ public class MisionEditor : Editor {
             EditorGUILayout.LabelField("No se ha podido cargar el porcentaje");
             MGM.CargarDatos();
         }
-        
+
 
         EsMisionUnica.boolValue = EditorGUILayout.Toggle(new GUIContent("¿Es Mision Unica?"
             , "Si la mision aparecera solo una vez por el spawn que este colocado"), EsMisionUnica.boolValue);
@@ -108,27 +107,22 @@ public class MisionEditor : Editor {
         CantidadMaximaEnergiaRestarSoldados.intValue = EditorGUILayout.IntSlider(CantidadMaximaEnergiaRestarSoldados.intValue,
                                                                                  0, 100);
         EditorGUILayout.LabelField("Cantidad de Experiencia a dar a los soldados: ", EditorStyles.miniLabel);
-        EXPADarASoldados.intValue = EditorGUILayout.IntSlider(EXPADarASoldados.intValue,0,1000);
+        EXPADarASoldados.intValue = EditorGUILayout.IntSlider(EXPADarASoldados.intValue, 0, 1000);
 
-        //Tiempos:
-        DesplegarTiempos = EditorGUILayout.Foldout(DesplegarTiempos, new GUIContent("Tiempos de Mision"));
-        if (DesplegarTiempos)
-        {
-            EditorGUILayout.LabelField("Tiempo para Respawnear: ", EditorStyles.miniLabel);
-            TiempoParaRespawn.intValue = EditorGUILayout.IntSlider(TiempoParaRespawn.intValue, 0, 60);
-            FormatoTiempoParaRespawn.enumValueIndex = EditorGUILayout.Popup(FormatoTiempoParaRespawn.enumValueIndex,
-                                                                            FormatoTiempoParaRespawn.enumNames);
+        EditorGUILayout.LabelField("Tiempo para Respawnear: ", EditorStyles.miniLabel);
+        TiempoParaRespawn.intValue = EditorGUILayout.IntSlider(TiempoParaRespawn.intValue, 0, 60);
+        FormatoTiempoParaRespawn.enumValueIndex = EditorGUILayout.Popup(FormatoTiempoParaRespawn.enumValueIndex,
+                                                                        FormatoTiempoParaRespawn.enumNames);
 
-            EditorGUILayout.LabelField("Tiempo que durara en el mapa: ", EditorStyles.miniLabel);
-            TiempoEnMapaBatalla.intValue = EditorGUILayout.IntSlider(TiempoEnMapaBatalla.intValue, 0, 60);
-            FormatoTiempoEnMapaBatalla.enumValueIndex = EditorGUILayout.Popup(FormatoTiempoEnMapaBatalla.enumValueIndex,
-                                                                            FormatoTiempoEnMapaBatalla.enumNames);
+        EditorGUILayout.LabelField("Tiempo que durara en el mapa: ", EditorStyles.miniLabel);
+        TiempoEnMapaBatalla.intValue = EditorGUILayout.IntSlider(TiempoEnMapaBatalla.intValue, 0, 60);
+        FormatoTiempoEnMapaBatalla.enumValueIndex = EditorGUILayout.Popup(FormatoTiempoEnMapaBatalla.enumValueIndex,
+                                                                        FormatoTiempoEnMapaBatalla.enumNames);
 
-            EditorGUILayout.LabelField("Tiempo de Pelea: ", EditorStyles.miniLabel);
-            TiempoPeleaBatalla.intValue = EditorGUILayout.IntSlider(TiempoPeleaBatalla.intValue, 0, 60);
-            FormatoTiempoPeleaBatalla.enumValueIndex = EditorGUILayout.Popup(FormatoTiempoPeleaBatalla.enumValueIndex,
-                                                                            FormatoTiempoPeleaBatalla.enumNames);
-        }
+        EditorGUILayout.LabelField("Tiempo de Pelea: ", EditorStyles.miniLabel);
+        TiempoPeleaBatalla.intValue = EditorGUILayout.IntSlider(TiempoPeleaBatalla.intValue, 0, 60);
+        FormatoTiempoPeleaBatalla.enumValueIndex = EditorGUILayout.Popup(FormatoTiempoPeleaBatalla.enumValueIndex,
+                                                                        FormatoTiempoPeleaBatalla.enumNames);
 
         serializedObject.ApplyModifiedProperties();
     }
